@@ -1,0 +1,342 @@
+/* ============================================================
+   APUTU: Baby's Day Out — src/styles/screens.css
+   Styles for the extended screens: Guardian select, World Map,
+   Shop, Daily Missions, Achievements, Settings, plus the
+   in-game power-up HUD and achievement toast. Loaded after
+   style.css, reuses the same design tokens (:root vars).
+   ============================================================ */
+
+.hidden { display: none !important; }
+
+/* ---------------- Home screen additions ---------------- */
+.btn-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+}
+.btn-grid .btn { font-size: 14px; padding: 13px 10px; }
+
+.btn-tertiary {
+  background: transparent;
+  color: var(--ink-soft);
+  box-shadow: none;
+  font-size: 14px;
+  padding: 8px;
+}
+.btn-tertiary:active { transform: none; box-shadow: none; opacity: 0.6; }
+
+/* ---------------- Wide panels (map/shop/achievements) ---------------- */
+.panel.wide { max-width: 480px; }
+.panel-subtitle {
+  text-align: center;
+  color: var(--ink-soft);
+  font-weight: 600;
+  font-size: 13px;
+  margin: -10px 0 16px;
+}
+.hint-text {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin: 6px 0 0;
+}
+.hint-text a { color: var(--clay-dark); font-weight: 700; }
+
+/* ---------------- Guardian (nanny) select ---------------- */
+.nanny-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 6px; }
+.nanny-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 2px solid #EBD9C2;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.nanny-card.selected { border-color: var(--clay); background: #FFF3E4; }
+.nanny-card.locked { opacity: 0.55; cursor: default; }
+.nanny-emoji { font-size: 32px; flex-shrink: 0; }
+.nanny-info { flex: 1; min-width: 0; }
+.nanny-name { font-family: var(--font-display); font-weight: 700; font-size: 15px; color: var(--ink); }
+.nanny-perk { font-size: 12px; color: var(--ink-soft); margin-top: 2px; line-height: 1.3; }
+.nanny-cost {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--clay-dark);
+  background: #FFF3E4;
+  border-radius: 999px;
+  padding: 5px 10px;
+  flex-shrink: 0;
+}
+.nanny-card.locked .nanny-cost { background: #EEE; color: var(--ink-soft); }
+.nanny-check { font-size: 20px; color: var(--leaf-dark); flex-shrink: 0; }
+
+/* ---------------- World map ---------------- */
+.world-list { display: flex; flex-direction: column; gap: 8px; max-height: 55vh; overflow-y: auto; margin-bottom: 10px; }
+.world-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 2px solid #EBD9C2;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+}
+.world-card.locked { opacity: 0.5; }
+.world-card.current { border-color: var(--leaf); background: #F1FAF4; }
+.world-swatch { width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0; border: 2px solid rgba(0,0,0,0.08); }
+.world-info { flex: 1; min-width: 0; }
+.world-name { font-family: var(--font-display); font-weight: 700; font-size: 14px; color: var(--ink); }
+.world-sub { font-size: 11px; color: var(--ink-soft); }
+.world-status { font-size: 11px; font-weight: 700; color: var(--ink-soft); flex-shrink: 0; text-align: right; }
+.world-card.current .world-status { color: var(--leaf-dark); }
+
+/* ---------------- Shop ---------------- */
+.shop-balance {
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--clay-dark);
+  margin-bottom: 14px;
+}
+.shop-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+.shop-tab {
+  flex: 1;
+  background: #fff;
+  border: 2px solid #EBD9C2;
+  border-radius: 999px;
+  padding: 8px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.shop-tab.active { background: var(--clay); border-color: var(--clay-dark); color: #fff; }
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  max-height: 50vh;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+.shop-item {
+  background: #fff;
+  border: 2px solid #EBD9C2;
+  border-radius: var(--radius-sm);
+  padding: 12px 10px;
+  text-align: center;
+}
+.shop-item.owned { border-color: var(--leaf); background: #F1FAF4; }
+.shop-item-swatch {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  margin: 0 auto 8px;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 2px #EBD9C2;
+}
+.shop-item-emoji { font-size: 32px; margin-bottom: 6px; }
+.shop-item-name { font-family: var(--font-display); font-weight: 700; font-size: 12px; color: var(--ink); margin-bottom: 6px; min-height: 30px; display: flex; align-items: center; justify-content: center; }
+.shop-item-btn {
+  width: 100%;
+  border: none;
+  border-radius: 999px;
+  padding: 7px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  background: var(--clay);
+  color: #fff;
+}
+.shop-item-btn:disabled { background: #D8CBB8; cursor: not-allowed; }
+.shop-item-btn.owned-btn { background: var(--leaf); }
+
+/* ---------------- Missions ---------------- */
+.streak-chip {
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--clay-dark);
+  margin-bottom: 14px;
+}
+.mission-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 6px; }
+.mission-card {
+  background: #fff;
+  border: 2px solid #EBD9C2;
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+.mission-card.complete { border-color: var(--leaf); background: #F1FAF4; }
+.mission-label { font-weight: 700; font-size: 13px; color: var(--ink); margin-bottom: 6px; }
+.mission-bar-track {
+  background: #EEE3D0;
+  border-radius: 999px;
+  height: 10px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+.mission-bar-fill { background: var(--leaf); height: 100%; border-radius: 999px; transition: width 0.3s ease; }
+.mission-footer { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--ink-soft); }
+.mission-claim-btn {
+  border: none;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  background: var(--gold);
+  color: var(--ink);
+  cursor: pointer;
+}
+.mission-claim-btn:disabled { background: #EEE; color: #AAA; cursor: not-allowed; }
+
+/* ---------------- Achievements ---------------- */
+.achievement-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  max-height: 60vh;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+.achievement-card {
+  background: #fff;
+  border: 2px solid #EBD9C2;
+  border-radius: var(--radius-sm);
+  padding: 12px 10px;
+  text-align: center;
+}
+.achievement-card.unlocked { border-color: var(--gold); background: #FFF8E8; }
+.achievement-card.locked { opacity: 0.45; }
+.achievement-emoji { font-size: 30px; margin-bottom: 6px; }
+.achievement-name { font-family: var(--font-display); font-weight: 700; font-size: 12px; color: var(--ink); }
+.achievement-desc { font-size: 10px; color: var(--ink-soft); margin-top: 3px; }
+
+/* ---------------- Settings ---------------- */
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 4px;
+  border-bottom: 1px solid #EEE3D0;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+}
+.settings-row:last-of-type { border-bottom: none; }
+
+.switch { position: relative; display: inline-block; width: 46px; height: 26px; flex-shrink: 0; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+  position: absolute; cursor: pointer; inset: 0;
+  background-color: #D8CBB8; border-radius: 999px; transition: 0.2s;
+}
+.slider::before {
+  position: absolute; content: "";
+  height: 20px; width: 20px; left: 3px; bottom: 3px;
+  background-color: white; border-radius: 50%; transition: 0.2s;
+}
+input:checked + .slider { background-color: var(--leaf); }
+input:checked + .slider::before { transform: translateX(20px); }
+
+/* ---------------- In-game power-up HUD ---------------- */
+.powerup-hud {
+  position: absolute;
+  top: 60px;
+  top: calc(60px + env(safe-area-inset-top));
+  left: 14px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: none;
+}
+.powerup-hud-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,248,238,0.92);
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  padding: 4px 10px 4px 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+.powerup-hud-icon { font-size: 16px; }
+
+.hud-world {
+  font-size: 11px !important;
+  padding: 5px 10px;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------------- Achievement toast ---------------- */
+.achievement-toast {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  z-index: 60;
+  background: var(--ink);
+  color: #fff;
+  border-radius: var(--radius-md);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: all 0.35s ease;
+  max-width: 90%;
+}
+.achievement-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.achievement-toast-emoji { font-size: 24px; }
+.achievement-toast-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gold); font-weight: 700; }
+.achievement-toast-name { font-family: var(--font-display); font-weight: 700; font-size: 14px; }
+
+/* ---------------- Game over new achievements ---------------- */
+.new-achievements { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 12px; }
+.new-achievement-chip {
+  background: #FFF3E4;
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--clay-dark);
+}
+
+/* ---------------- Accessibility toggles ---------------- */
+body.colorblind-mode .hud-chip,
+body.colorblind-mode .chip,
+body.colorblind-mode .btn {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+body.colorblind-mode .float-label {
+  text-shadow: 0 0 3px #fff, 0 0 3px #fff;
+  font-weight: 800;
+}
+
+body.reduce-motion * {
+  animation-duration: 0.001s !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001s !important;
+}
+body.reduce-motion .cloud,
+body.reduce-motion .bird,
+body.reduce-motion .rescue-anim {
+  animation: none !important;
+}

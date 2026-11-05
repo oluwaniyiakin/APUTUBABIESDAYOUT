@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<title>APUTU: Baby's Day Out</title>
+<meta name="description" content="Protect the fearless toddler Aputu as he crawls through a vibrant African neighborhood. Solve hazards before he reaches them!" />
+<meta name="theme-color" content="#E8963E" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="manifest" href="/manifest.json" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ===================== HOME ===================== -->
+  <section id="screen-home" class="screen active">
+    <header class="brand">
+      <h1 class="logo">
+        <span class="logo-top">APUTU</span>
+        <span class="logo-sub">Baby's Day Out</span>
+      </h1>
+      <p class="tagline">He never stops crawling. You never stop protecting.</p>
+    </header>
+
+    <canvas id="home-canvas" class="hero-canvas" aria-label="Aputu crawling down the street while his guardian chases him"></canvas>
+
+    <div class="home-buttons">
+      <button class="btn btn-primary btn-lg" id="btn-play">▶ Play</button>
+      <div class="btn-grid">
+        <button class="btn btn-secondary" id="btn-customize">🎨 Customize</button>
+        <button class="btn btn-secondary" id="btn-nanny">👪 Guardians</button>
+        <button class="btn btn-secondary" id="btn-worldmap">🗺️ World Map</button>
+        <button class="btn btn-secondary" id="btn-shop">🛍️ Shop</button>
+        <button class="btn btn-secondary" id="btn-missions">📅 Missions</button>
+        <button class="btn btn-secondary" id="btn-achievements">🏆 Awards</button>
+        <button class="btn btn-secondary" id="btn-scrapbook">📖 Scrapbook</button>
+        <button class="btn btn-secondary" id="btn-settings">⚙️ Settings</button>
+      </div>
+      <button class="btn btn-tertiary" id="btn-howto">❔ How to Play</button>
+    </div>
+
+    <div class="home-footer">
+      <div class="stat-chip">🪙 <span id="home-coins">0</span></div>
+      <div class="stat-chip">⭐ <span id="home-stars">0</span></div>
+      <div class="stat-chip" id="home-level-chip">Lv <span id="home-level">1</span> · <span id="home-title">Curious Cousin</span></div>
+      <div class="stat-chip">📍 <span id="home-world">Residential Street</span></div>
+    </div>
+  </section>
+
+  <!-- ===================== INTRO STORY ===================== -->
+  <section id="screen-intro" class="screen">
+    <canvas id="intro-canvas" class="intro-canvas"></canvas>
+    <div class="intro-caption">
+      <div class="intro-dots" id="intro-dots"></div>
+      <h2 id="intro-title"></h2>
+      <p id="intro-text"></p>
+      <div class="intro-buttons">
+        <button class="btn btn-tertiary" id="btn-intro-skip">Skip</button>
+        <button class="btn btn-primary" id="btn-intro-next">Next ▶</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MODE SELECT ===================== -->
+  <section id="screen-modes" class="screen">
+    <div class="panel wide">
+      <h2 class="panel-title">Choose a Mode</h2>
+      <div id="mode-list" class="mode-list"><!-- populated by ui.ts --></div>
+      <div class="panel-buttons">
+        <button class="btn btn-secondary" id="btn-modes-back">← Back</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CUSTOMIZE ===================== -->
+  <section id="screen-customize" class="screen">
+    <div class="panel">
+      <h2 class="panel-title">Customize Aputu</h2>
+
+      <canvas id="preview-canvas" class="preview-canvas" aria-label="Preview of Aputu. Tap to make him giggle."></canvas>
+      <p class="hint-text center">Tap Aputu to make him giggle 😄</p>
+
+      <div class="option-group">
+        <h3>Gender</h3>
+        <div class="chip-row" data-target="gender">
+          <button class="chip active" data-value="boy">Boy</button>
+          <button class="chip" data-value="girl">Girl</button>
+          <button class="chip" data-value="neutral">Surprise Me</button>
+        </div>
+      </div>
+
+      <div class="option-group">
+        <h3>Skin Tone</h3>
+        <div class="chip-row swatch-row" data-target="skin">
+          <button class="chip swatch active" data-value="tone1" style="--swatch:#8D5524"></button>
+          <button class="chip swatch" data-value="tone2" style="--swatch:#C68642"></button>
+          <button class="chip swatch" data-value="tone3" style="--swatch:#E0AC69"></button>
+          <button class="chip swatch" data-value="tone4" style="--swatch:#F1C27D"></button>
+          <button class="chip swatch" data-value="tone5" style="--swatch:#FFDBAC"></button>
+        </div>
+      </div>
+
+      <div class="option-group">
+        <h3>Outfit</h3>
+        <div class="chip-row" id="outfit-chip-row" data-target="outfit"></div>
+        <p class="hint-text">Need more outfits? Visit the <a href="#" id="link-to-shop">Shop</a>.</p>
+      </div>
+
+      <div class="option-group">
+        <h3>Hair</h3>
+        <div class="chip-row" data-target="hair">
+          <button class="chip active" data-value="puffs">Puffs</button>
+          <button class="chip" data-value="curls">Curls</button>
+          <button class="chip" data-value="locs">Tiny Locs</button>
+          <button class="chip" data-value="bald">Bald & Proud</button>
+          <button class="chip" data-value="braids">Braids</button>
+        </div>
+      </div>
+
+      <div class="panel-buttons">
+        <button class="btn btn-secondary" id="btn-customize-back">← Back</button>
+        <button class="btn btn-primary" id="btn-customize-save">Save & Continue</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== GUARDIANS ===================== -->
+  <section id="screen-nanny" class="screen">
+    <div class="panel">
+      <h2 class="panel-title">Choose Your Guardian</h2>
+      <p class="panel-subtitle">Each guardian has a passive perk active for your whole run.</p>
+      <div id="nanny-list" class="nanny-list"></div>
+      <div class="panel-buttons">
+        <button class="btn btn-secondary" id="btn-nanny-back">← Back</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WORLD MAP ===================== -->
+  <section id="screen-worldmap" class="screen">
+    <div class="panel wide">
+      <h2 class="panel-title">World Map</h2>
+      <p class="panel-subtitle">Unlocked by lifetime distance crawled. Keep playing to travel further!</p>
+      <div id="world-list" class="world-list"></div>
+      <div class="panel-buttons">
+        <button class="btn btn-secondary" id="btn-worldmap-back">← Back</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SHOP ===================== -->
+  <section id="screen-shop" class="screen">
+    <div class="panel wide">
+      <h2 class="panel-title">Shop</h2>
+      <div class="shop-balance">🪙 <span id="shop-coins">0</span> coins</div>
+      <div class="shop-tabs">
+        <button class="shop-tab active" data-tab="outfits">Outfits</button>
+        <button class="shop-tab" data-tab="nannies">Guardians</button>
+      </div>
+      <div id="shop-outfits" class="shop-grid"></div>
+      <div id="shop-nannies" class="shop-grid hidden"></div>
+      <div class="panel-buttons">
+        <button class="btn btn-secondary" id="btn-shop-back">← Back</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MISSIONS ===================== -->
+  <section id="screen-missions" class="screen">
+    <div class="panel">
+      <h2 class="panel-title">Daily Missions</h2>
+      <div class="streak-chip">🔥 <span id="mission-streak">0</span> day streak</div>
+      <div id="mission-list" class="mission-list"></div>
+      <div class="panel-buttons">
+        <button class="btn btn-secondary" id="btn-missions-back">← Back</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ACHIEVEMENTS ===================== -->
+  <section id="screen-achievements" class="screen">
+    <div class="panel wide">
+      <h2 class="panel-title">Awards Case</h2>
+      <div id="achievement-list" class="achievement-list"></div>
+      <div class="panel-buttons">
+        <button class="btn btn-secondary" id="btn-achievements-back">← Back</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCRAPBOOK ===================== -->
+  <section id="screen-scrapbook" class="screen">
+    <div class="panel wide">
+      <h2 class="panel-title">Nanny's Scrapbook</h2>
+      <p class="panel-subtitle" id="scrap-count">0 of 0 memories collected</p>
+      <div id="scrap-list" class="scrap-list"></div>
+      <div class="panel-buttons">
+        <button class="btn btn-secondary" id="btn-scrapbook-back">← Back</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SETTINGS ===================== -->
+  <section id="screen-settings" class="screen">
+    <div class="panel">
+      <h2 class="panel-title">Settings</h2>
+      <div class="settings-row"><span>🎵 Music</span><label class="switch"><input type="checkbox" id="toggle-music" checked><span class="slider"></span></label></div>
+      <div class="settings-row"><span>🔊 Sound Effects</span><label class="switch"><input type="checkbox" id="toggle-sfx" checked><span class="slider"></span></label></div>
+      <div class="settings-row"><span>💡 Show hints</span><label class="switch"><input type="checkbox" id="toggle-hints" checked><span class="slider"></span></label></div>
+      <div class="settings-row"><span>🎨 Colorblind-friendly mode</span><label class="switch"><input type="checkbox" id="toggle-colorblind"><span class="slider"></span></label></div>
+      <div class="settings-row"><span>🐢 Reduce motion</span><label class="switch"><input type="checkbox" id="toggle-motion"><span class="slider"></span></label></div>
+      <button class="btn btn-secondary settings-btn" id="btn-replay-intro">🎬 Replay the story</button>
+      <div class="panel-buttons">
+        <button class="btn btn-secondary" id="btn-settings-back">← Back</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW TO PLAY ===================== -->
+  <section id="screen-howto" class="screen">
+    <div class="panel">
+      <h2 class="panel-title">How to Play</h2>
+      <ul class="howto-list">
+        <li><span class="howto-icon">👶</span><div><strong>Aputu crawls on his own.</strong> You can't steer him — but he's curious, and he always heads for the next hazard.</div></li>
+        <li><span class="howto-icon">👆</span><div><strong>Tap</strong> to stop traffic and shoo dogs. <strong>Drag</strong> carts and cones out of the way. <strong>Hold</strong> to calm a goat or switch off a wire.</div></li>
+        <li><span class="howto-icon">⭕</span><div><strong>Watch the ring.</strong> It shrinks and turns red as Aputu closes in — fix the hazard before it does.</div></li>
+        <li><span class="howto-icon">🦋</span><div><strong>He gets distracted</strong> by flowers, butterflies, balloons and cats. Those are free coins and breathing space.</div></li>
+        <li><span class="howto-icon">🚦</span><div><strong>Challenge events</strong> shake things up — traffic jams, storms, power cuts and parades.</div></li>
+        <li><span class="howto-icon">🎁</span><div><strong>Grab power-ups</strong> and <strong>pick a guardian</strong> whose perk suits your style.</div></li>
+        <li><span class="howto-icon">📖</span><div><strong>Fill Nanny's scrapbook</strong> by meeting every hazard, neighbourhood and memorable moment.</div></li>
+        <li><span class="howto-icon">💛</span><div>If a hazard gets through, your guardian swoops in with a cuddle. Nothing scary — ever.</div></li>
+      </ul>
+      <button class="btn btn-primary" id="btn-howto-back">Got it!</button>
+    </div>
+  </section>
+
+  <!-- ===================== GAME ===================== -->
+  <section id="screen-game" class="screen">
+    <div id="game-hud">
+      <div class="hud-left">
+        <div class="hud-chip">🪙 <span id="hud-coins">0</span></div>
+        <div class="hud-chip hud-world" id="hud-world">Residential Street</div>
+      </div>
+      <div class="hud-center">
+        <div class="hud-chip hud-distance">📍 <span id="hud-distance">0</span>m</div>
+        <div class="hud-chip hud-timer hidden" id="hud-timer">⏱ 1:30</div>
+      </div>
+      <div class="hud-right">
+        <button class="hud-pause" id="btn-pause">⏸</button>
+      </div>
+    </div>
+
+    <div id="event-banner" class="event-banner hidden">
+      <div class="event-emoji" id="event-emoji">🚦</div>
+      <div class="event-text">
+        <div class="event-name" id="event-name">Traffic Jam!</div>
+        <div class="event-msg" id="event-msg"></div>
+      </div>
+      <div class="event-bar"><div class="event-bar-fill" id="event-bar-fill"></div></div>
+    </div>
+
+    <div id="chapter-card" class="chapter-card hidden">
+      <div class="chapter-kicker" id="chapter-kicker">Chapter 1</div>
+      <div class="chapter-name" id="chapter-name">Residential Street</div>
+      <div class="chapter-flavor" id="chapter-flavor"></div>
+    </div>
+
+    <div id="powerup-hud" class="powerup-hud"></div>
+
+    <div id="game-canvas-wrap">
+      <canvas id="game-canvas"></canvas>
+      <div id="fx-layer"></div>
+    </div>
+
+    <div id="combo-toast" class="combo-toast"></div>
+  </section>
+
+  <!-- ===================== PAUSE ===================== -->
+  <div id="overlay-pause" class="overlay hidden">
+    <div class="panel small">
+      <h2 class="panel-title">Paused</h2>
+      <button class="btn btn-primary" id="btn-resume">▶ Resume</button>
+      <button class="btn btn-secondary" id="btn-restart-pause">↻ Restart</button>
+      <button class="btn btn-secondary" id="btn-quit-pause">🏠 Quit to Menu</button>
+    </div>
+  </div>
+
+  <!-- ===================== GAME OVER ===================== -->
+  <div id="overlay-gameover" class="overlay hidden">
+    <div class="panel small gameover-panel">
+      <canvas id="gameover-canvas" class="gameover-canvas"></canvas>
+      <h2 class="panel-title" id="gameover-title">Rescued!</h2>
+      <p class="gameover-sub" id="gameover-sub"></p>
+      <div class="stars" id="go-stars"></div>
+      <div class="score-line"><span id="go-mode"></span> score <b id="go-score">0</b> <span id="go-best" class="best-chip"></span></div>
+      <div class="results-row">
+        <div class="result-chip">📍 <span id="result-distance">0</span>m</div>
+        <div class="result-chip">🪙 <span id="result-coins">0</span></div>
+        <div class="result-chip">✅ <span id="result-saves">0</span> saves</div>
+      </div>
+      <div class="level-bar" id="go-level">
+        <div class="level-label"><span id="go-level-name">Lv 1</span><span id="go-xp">+0 XP</span></div>
+        <div class="level-track"><div class="level-fill" id="go-level-fill"></div></div>
+      </div>
+      <div id="new-achievements" class="new-achievements"></div>
+      <button class="btn btn-primary btn-lg" id="btn-retry">↻ Try Again</button>
+      <button class="btn btn-secondary" id="btn-menu">🏠 Main Menu</button>
+    </div>
+  </div>
+
+  <!-- ===================== TOAST ===================== -->
+  <div id="achievement-toast" class="achievement-toast hidden">
+    <span class="achievement-toast-emoji" id="achievement-toast-emoji">🏆</span>
+    <div>
+      <div class="achievement-toast-label" id="achievement-toast-label">Achievement Unlocked</div>
+      <div class="achievement-toast-name" id="achievement-toast-name">—</div>
+    </div>
+  </div>
+
+</div>
+
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

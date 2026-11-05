@@ -1,0 +1,165 @@
+/* ============================================================
+   APUTU: Baby's Day Out — src/styles/polish.css
+   Styles for the second-generation UI: animated hero canvases,
+   intro story, mode cards, scrapbook, event banner, chapter
+   cards, the richer game-over panel and character thumbnails.
+   Loaded last so it can refine the earlier sheets.
+   ============================================================ */
+
+/* ---------------- Home ---------------- */
+#screen-home {
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 18px 18px 26px;
+  background: linear-gradient(180deg, #FFE7BC 0%, #FCEFDD 45%, #FFF6E6 100%);
+}
+#screen-home .brand { margin-top: 0; }
+#screen-home .logo-top { font-size: clamp(44px, 12vw, 62px); }
+#screen-home .tagline { margin-top: 8px; font-size: 14px; }
+
+.hero-canvas {
+  width: 100%;
+  max-width: 440px;
+  height: 190px;
+  border-radius: 24px;
+  border: 3px solid var(--ink);
+  box-shadow: 0 8px 0 rgba(58, 42, 30, 0.14), 0 14px 26px var(--shadow);
+  background: #BEE3F5;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+.home-buttons { margin-top: 4px; }
+.btn-grid .btn { padding: 11px 8px; font-size: 13.5px; }
+.home-footer { gap: 8px; }
+.stat-chip { font-size: 12.5px; padding: 6px 12px; }
+#home-level-chip { background: #FFF1CF; }
+
+/* ---------------- Intro story ---------------- */
+#screen-intro { background: #FFE7BC; justify-content: flex-start; }
+.intro-canvas { width: 100%; height: 52%; min-height: 240px; display: block; border-bottom: 4px solid var(--ink); }
+.intro-caption {
+  flex: 1;
+  width: 100%;
+  max-width: 460px;
+  padding: 16px 22px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+.intro-caption h2 { margin: 0; font-family: var(--font-display); font-size: 26px; color: var(--clay-dark); }
+.intro-caption p { margin: 0; color: var(--ink-soft); font-weight: 700; line-height: 1.45; font-size: 15px; }
+.intro-dots { display: flex; gap: 8px; justify-content: center; margin-bottom: 4px; }
+.intro-dots span { width: 9px; height: 9px; border-radius: 50%; background: #E3CFA9; transition: all 0.2s; }
+.intro-dots span.on { background: var(--clay); width: 24px; border-radius: 6px; }
+.intro-buttons { display: flex; gap: 10px; justify-content: center; align-items: center; margin-top: 8px; }
+.intro-buttons .btn-primary { min-width: 170px; }
+
+/* ---------------- Mode select ---------------- */
+.mode-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 6px; }
+.mode-card {
+  display: flex; gap: 12px; align-items: center; text-align: left;
+  background: #fff; border: 3px solid #EBD9C2; border-radius: var(--radius-md);
+  padding: 12px 14px; cursor: pointer; font-family: var(--font-body); color: var(--ink);
+  transition: transform 0.1s, border-color 0.15s;
+}
+.mode-card:active { transform: scale(0.98); }
+.mode-card.last { border-color: var(--clay); background: #FFF6E8; }
+.mode-emoji { font-size: 34px; flex-shrink: 0; }
+.mode-name { font-family: var(--font-display); font-weight: 800; font-size: 17px; }
+.mode-tag { font-family: var(--font-body); font-weight: 700; font-size: 11px; color: var(--clay-dark); background: #FFF1CF; border-radius: 999px; padding: 2px 8px; margin-left: 4px; vertical-align: middle; }
+.mode-desc { font-size: 12.5px; color: var(--ink-soft); line-height: 1.35; margin-top: 3px; }
+.mode-best { font-size: 11.5px; font-weight: 800; color: var(--leaf-dark); margin-top: 4px; }
+
+/* ---------------- Customize preview ---------------- */
+.preview-canvas {
+  width: 100%; height: 210px; display: block; border-radius: var(--radius-md);
+  border: 3px solid var(--ink); background: #BEE3F5; cursor: pointer; margin-bottom: 4px;
+}
+.hint-text.center { text-align: center; margin: 2px 0 14px; }
+
+/* ---------------- Character thumbnails ---------------- */
+.nanny-thumb { width: 48px; height: 64px; flex-shrink: 0; background: #FFF3E4; border-radius: 12px; }
+.nanny-card.locked .nanny-thumb { filter: grayscale(0.8) brightness(1.05); }
+.shop-thumb { width: 100%; height: auto; border-radius: 10px; background: #FFF3E4; margin-bottom: 6px; }
+.shop-item .nanny-thumb { width: 60px; height: 80px; margin: 0 auto 6px; display: block; }
+
+/* ---------------- Scrapbook ---------------- */
+.scrap-list { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 10px; max-height: 60vh; overflow-y: auto; padding: 6px 4px 10px; margin-bottom: 8px; }
+.scrap-card {
+  background: #FFFDF6; border: 2px solid #EBD9C2; border-radius: 6px; padding: 7px 7px 9px;
+  box-shadow: 0 3px 8px rgba(58, 42, 30, 0.16); transform: rotate(var(--tilt, 0deg));
+  position: relative;
+}
+.scrap-card::before { content: ''; position: absolute; top: -7px; left: 50%; width: 38px; height: 13px; background: rgba(245, 185, 66, 0.7); transform: translateX(-50%) rotate(-3deg); border-radius: 2px; }
+.scrap-thumb { width: 100%; height: auto; display: block; border-radius: 3px; border: 1px solid rgba(58, 42, 30, 0.25); }
+.scrap-title { font-family: var(--font-display); font-weight: 800; font-size: 12.5px; margin: 6px 0 2px; color: var(--ink); }
+.scrap-caption { font-size: 10.5px; line-height: 1.3; color: var(--ink-soft); font-style: italic; }
+.scrap-card.locked { background: #F1E9DA; box-shadow: none; }
+.scrap-locked-art { height: 62px; display: flex; align-items: center; justify-content: center; font-size: 38px; font-family: var(--font-display); font-weight: 800; color: #CDBA9A; background: #E9DFCB; border-radius: 3px; }
+
+/* ---------------- Settings ---------------- */
+.settings-btn { width: 100%; margin-top: 14px; }
+
+/* ---------------- HUD extras ---------------- */
+.hud-center { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+.hud-timer { background: #FFF1CF; }
+.hud-timer.urgent { background: #FFD6D6; border-color: var(--sunset-pink); animation: tick 0.5s ease-in-out infinite alternate; }
+@keyframes tick { from { transform: scale(1); } to { transform: scale(1.08); } }
+
+.event-banner {
+  position: absolute; z-index: 30; top: 66px; left: 50%; transform: translateX(-50%);
+  width: min(92%, 400px); background: rgba(58, 42, 30, 0.92); color: #fff;
+  border-radius: 16px; padding: 9px 12px 14px; display: flex; gap: 10px; align-items: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); animation: slideDown 0.4s cubic-bezier(0.2, 1.3, 0.4, 1);
+  border: 2px solid var(--gold); pointer-events: none;
+}
+.event-emoji { font-size: 28px; }
+.event-name { font-family: var(--font-display); font-weight: 800; font-size: 16px; color: var(--gold); }
+.event-msg { font-size: 12px; font-weight: 700; opacity: 0.92; }
+.event-bar { position: absolute; left: 12px; right: 12px; bottom: 5px; height: 4px; border-radius: 3px; background: rgba(255, 255, 255, 0.2); overflow: hidden; }
+.event-bar-fill { height: 100%; background: var(--gold); width: 100%; transform-origin: left; }
+@keyframes eventBar { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@keyframes slideDown { from { opacity: 0; transform: translate(-50%, -30px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+.chapter-card {
+  position: absolute; z-index: 28; left: 0; right: 0; top: 24%; text-align: center; pointer-events: none;
+  opacity: 0;
+}
+.chapter-card.show { animation: chapterIn 3s ease forwards; }
+.chapter-kicker { font-family: var(--font-display); font-weight: 700; letter-spacing: 3px; text-transform: uppercase; font-size: 13px; color: #fff; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); }
+.chapter-name { font-family: var(--font-display); font-weight: 800; font-size: 36px; color: var(--gold); -webkit-text-stroke: 2px var(--ink); paint-order: stroke fill; text-shadow: 3px 3px 0 var(--ink); line-height: 1.1; }
+.chapter-flavor { margin-top: 6px; font-weight: 800; font-size: 13px; color: #fff; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); padding: 0 24px; }
+@keyframes chapterIn {
+  0% { opacity: 0; transform: translateY(14px) scale(0.9); }
+  14% { opacity: 1; transform: translateY(0) scale(1); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+/* ---------------- Game over ---------------- */
+.gameover-panel { padding-top: 10px; max-height: 94vh; overflow-y: auto; }
+.gameover-canvas { width: 190px; height: 150px; display: block; margin: 0 auto 2px; }
+.stars { display: flex; justify-content: center; gap: 6px; font-size: 40px; line-height: 1; margin-bottom: 4px; }
+.stars span { color: #E4D6BC; -webkit-text-stroke: 2px #BFA97F; transform: scale(0.4); opacity: 0; animation: starPop 0.5s cubic-bezier(0.2, 1.6, 0.4, 1) forwards; }
+.stars span.on { color: var(--gold); -webkit-text-stroke: 2px var(--ink); filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.2)); }
+@keyframes starPop { to { transform: scale(1); opacity: 1; } }
+.score-line { font-family: var(--font-display); font-weight: 700; font-size: 15px; color: var(--ink-soft); margin-bottom: 10px; }
+.score-line b { font-size: 24px; color: var(--clay-dark); margin: 0 4px; }
+.best-chip { display: inline-block; font-size: 12px; background: #fff; border: 2px solid #EBD9C2; border-radius: 999px; padding: 2px 9px; }
+.best-chip.new { background: #FFF1CF; border-color: var(--gold); color: var(--clay-dark); animation: bounce 0.6s ease infinite alternate; }
+.level-bar { margin: 2px 0 12px; text-align: left; }
+.level-label { display: flex; justify-content: space-between; font-family: var(--font-display); font-weight: 700; font-size: 12px; color: var(--ink-soft); margin-bottom: 3px; }
+.level-track { height: 10px; border-radius: 999px; background: #EEE3D0; overflow: hidden; }
+.level-fill { height: 100%; background: linear-gradient(90deg, var(--leaf), #7CC06B); border-radius: 999px; transition: width 0.8s ease; }
+
+/* ---------------- Toast ---------------- */
+.achievement-toast { z-index: 80; }
+
+/* ---------------- Small screens ---------------- */
+@media (max-height: 700px) {
+  .hero-canvas { height: 150px; }
+  #screen-home .logo-top { font-size: 44px; }
+}

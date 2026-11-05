@@ -1,0 +1,27 @@
+{
+  "name": "aputu-babys-day-out",
+  "version": "2.0.0",
+  "private": true,
+  "description": "APUTU: Baby's Day Out \u2014 protect a fearless, endlessly crawling toddler through a vibrant African neighborhood.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -p tsconfig.json --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "validate": "node scripts/validate-data.mjs",
+    "preview:art": "vite-node scripts/preview-art.ts",
+    "preview:screens": "PREVIEW=1 vitest run tests/screenshots.test.ts",
+    "check": "npm run typecheck && npm run validate && npm test"
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "^1.1.0",
+    "@types/node": "^20.14.15",
+    "jsdom": "^24.1.1",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.1",
+    "vitest": "^2.0.5"
+  }
+}
